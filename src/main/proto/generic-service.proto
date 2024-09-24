@@ -1,0 +1,27 @@
+// define the syntax of the proto file
+syntax = "proto3";
+
+// import the google any proto file
+import "google/protobuf/any.proto";
+
+//  this option is used to generate java code in multiple files
+option java_multiple_files = true;
+
+// this option defines the java package name for the generated code
+package  com.dependency.mscore.grpc.config;
+
+
+// define the request message
+message GenericRequest {
+  google.protobuf.Any data = 1;
+}
+
+// define the response message
+message GenericResponse {
+  google.protobuf.Any data = 1;
+}
+
+// define the service
+service GenericService {
+  rpc  call(GenericRequest) returns (GenericResponse);
+}
