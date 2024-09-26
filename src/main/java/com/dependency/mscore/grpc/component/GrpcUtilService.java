@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.protobuf.Any;
 import com.google.protobuf.ByteString;
+import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,17 @@ public class GrpcUtilService {
                         .setData(generateAnyData(data, inputClass))
                         .build());
         return generateClassFromAnyData(genericResponse.getData().getValue().toByteArray(), ouputClass);
+    }
+
+    public static <T> void sendCommunicationAsync(GenericServiceGrpc.GenericServiceStub blockingStub,
+                                                  T data,
+                                                  Class<T> inputClass,
+                                                  StreamObserver<GenericResponse> responseObserver) {
+
+        blockingStub.call(
+                GenericRequest.newBuilder()
+                        .setData(generateAnyData(data, inputClass))
+                        .build(), responseObserver);
     }
 
 

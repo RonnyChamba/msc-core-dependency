@@ -17,4 +17,5 @@ import java.io.Serializable;
 public class InternalRequestDTO<P> extends GenericRequestDTO<P> implements Serializable {
     private static final long serialVersionUID = -2334315079886883437L;
     public GenericServiceGrpc.GenericServiceBlockingStub blockingStub;
+    public GenericServiceGrpc.GenericServiceStub asyncStub;
 }
